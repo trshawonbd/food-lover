@@ -176,8 +176,8 @@ const randomMeal = () =>{
 randomMeal()
 
 const showRandomMeal = (meal) =>{
-    console.log(meal)
-    const randomMealContainer = document.getElementById('randomMealContainer')
+/*     console.log(meal)
+ */    const randomMealContainer = document.getElementById('randomMealContainer')
     const div = document.createElement('div')
     div.classList.add('card')
     div.style.width = '18rem'
@@ -194,29 +194,79 @@ const showRandomMeal = (meal) =>{
             
     `
     randomMealContainer.appendChild(div)
-    
-
-
-    /* 
-      <div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">An item</li>
-    <li class="list-group-item">A second item</li>
-    <li class="list-group-item">A third item</li>
-  </ul>
-  <div class="card-body">
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
-  </div>
-</div>
-    */
-
 
 }
 
 /* random meal end */
+
+
+/* start country */
+
+const loadCountry = () => {
+    const url = `https://www.themealdb.com/api/json/v1/1/list.php?a=list`
+    fetch(url)
+    .then(res => res.json())
+    .then(data => showCountry(data.meals))
+
+}
+
+loadCountry();
+
+const showCountry = (countries) =>{
+    console.log(countries)
+    for(const country of countries){
+        console.log (country)
+        const countriesContainer = document.getElementById('countriesContainer');
+        const div = document.createElement('div')
+        div.classList.add('col')
+        div.innerHTML = `
+    
+        <div class="p-3 border card"> <span class="card-text"> ${country.strArea} </span></div>
+      
+        
+        `
+        countriesContainer.appendChild(div)
+
+    }
+}
+
+
+
+
+/* start letter */
+
+const loadLetter = (id) =>{
+    const letterMealsContainer = document.getElementById('letterMealsContainer');
+    letterMealsContainer.textContent = ''
+    document.getElementById('letter-meal').style.display = 'none'
+    const foundletter = document.getElementById(id)
+    const found = foundletter.innerText
+    const input = found.toLowerCase();
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${input}`
+    /* console.log(url) */
+    fetch (url)
+    .then(res => res.json())
+    .then(data => showMealsByLetter(data.meals))
+}
+
+const showMealsByLetter = (meals) =>{
+    /* console.log(meals) */
+    for (const meal of meals){
+        console.log(meal)
+        const letterMealsContainer = document.getElementById('letterMealsContainer');
+        const div = document.createElement('div');
+        div.classList.add('col');
+        div.innerHTML = `
+        <div class="card h-100">
+                    <img src="${meal.strMealThumb}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">${meal.strMeal}</h5>
+                      <p class="card-text">Instruction: ${meal.strInstructions.slice(0,250)}...</p>
+                      <button type="button" class="btn btn-danger">Details</button>
+                    </div>
+                  </div>
+        `
+        letterMealsContainer.appendChild(div);
+        document.getElementById('letter-meal').style.display = 'block'
+    }
+}
