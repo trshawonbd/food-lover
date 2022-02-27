@@ -36,11 +36,11 @@ hr{
     font-size: larger;
     color: red;
 }
-.card{
+.card, .for-add{
     background-color: #3f3d56;
 }
 
-.card-title{
+.card-title, .ingredients-title{
     color: #f6c964;
     font-weight: 900;
 }
@@ -48,4 +48,8 @@ hr{
 .card-text{
     color: white;
     font-weight: 700;
+}
+
+.card-ingredients{
+    color: #6c63ff;
 }

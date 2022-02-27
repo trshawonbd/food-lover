@@ -36,7 +36,6 @@ const showSearchMeal = (meals) =>{
     }
     for(const meal of meals){
         console.log(meal);
-        
         const searchMealsContainer = document.getElementById('searchMealsContainer');
         const div = document.createElement('div');
         div.classList.add('col');
@@ -47,7 +46,7 @@ const showSearchMeal = (meals) =>{
                     <div class="card-body">
                       <h5 class="card-title">${meal.strMeal}</h5>
                       <p id="tags" class="card-text">${meal.strTags ? meal.strTags : ''}</p>
-                      <button type="button" class="btn btn-danger">Details</button>
+                      <button onclick="detailsMeal(${meal.idMeal})" type="button" class="btn btn-danger">Details</button>
                     </div>
                   </div>
         `
@@ -55,6 +54,40 @@ const showSearchMeal = (meals) =>{
         searchTitle('block')
     }
     toggleSpinner('none');
+}
+
+const detailsMeal = (idMeal) => {
+    console.log(idMeal);
+    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`
+    console.log(url)
+    fetch(url)
+    .then(res => res.json())
+    .then(data =>  showDetailsMeal(data.meals[0]))
+}
+
+const showDetailsMeal = (meal) =>{
+    console.log(meal);
+    const searchMealsContainer = document.getElementById('searchMealsContainer');
+    searchMealsContainer.textContent = ''
+    const searchResultDescriptionContainer = document.getElementById('searchResultDescriptionContainer');
+    searchResultDescriptionContainer.textContent ='';
+    const div = document.createElement('div');
+    div.classList.add('for-add');
+    div.innerHTML = `
+            
+    <div class="row g-0">
+    <div class="col-md-4">
+      <img src="${meal.strMealThumb}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h3 class="card-title">${meal.strMeal}</h3>
+        <h5 class="card-ingredients"><span class = "ingredients-title">Ingredients:</span> ${meal.strIngredient1}, ${meal.strIngredient2}, ${meal.strIngredient3}, ${meal.strIngredient4}, ${meal.strIngredient5}</h5>
+        <p class="card-text instructions">${meal.strInstructions}</p>
+      </div>
+    </div>
+    `
+    searchResultDescriptionContainer.appendChild(div);
 }
 
 
@@ -77,8 +110,6 @@ loadMeals();
 
 const showMeals = (allMeals) =>{
     console.log(allMeals);
-
-
     for(const meal of allMeals){
         console.log(meal);
         const allMealsContainer = document.getElementById('allMealsContainer');
@@ -95,7 +126,6 @@ const showMeals = (allMeals) =>{
                   </div>
         `
         allMealsContainer.appendChild(div);
-
     }
 }
 
