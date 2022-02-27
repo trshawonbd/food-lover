@@ -18,9 +18,23 @@ hr{
     color: #ea565c;
 }
 
+#search-title{
+    display: none;
+}
 .search-btn{
     background-color: crimson;
     color: aliceblue;
+}
+
+#spinner{
+    display: none;
+}
+
+#error-for-write-anything{
+    display: none;
+    font-weight: 900;
+    font-size: larger;
+    color: red;
 }
 .card{
     background-color: #3f3d56;

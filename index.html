@@ -47,12 +47,38 @@
 
         <!--start search -->
         <div class="w-75 mx-auto mb-5">
-                <input class=" w-75  p-3 me-2 border border-3 rounded border border-danger" type="search" placeholder="Search Your Food" aria-label="Search">
-                <button class="btn btn-outline-success p-3 search-btn border border-3 rounded border border-danger" type="submit">Search</button>
+                <input id="search-text" class=" w-75  p-3 me-2 border border-3 rounded border border-danger" type="search" placeholder="Search Your Food" aria-label="Search">
+                <button onclick="searchMeal()" class="btn btn-outline-success p-3 search-btn border border-3 rounded border border-danger" type="submit">Search</button>
         </div>
 
+        <div id="search-title">
+            <h2 class="text-center title text-decoration-underline">Search Result  </h2>
+        </div>
+        <div class="mt-5 mb-5">
+            <div id="searchMealsContainer" class="row row-cols-1 row-cols-md-4 g-4">
+
+              </div>
+        </div>
 
         <!-- end search -->
+
+        <!-- start spinner -->
+        <div class="text-center mb-5" id="spinner">
+            <div class="spinner-border"  role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+
+          <div class="text-center mb-5" id="error-for-write-anything">
+              <p> Please write your favourite food name</p>
+          </div>
+
+
+
+        <!-- end spinner -->
+
+
+        
        
 
         <!-- start all meal -->

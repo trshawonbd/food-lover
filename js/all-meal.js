@@ -1,3 +1,72 @@
+/* search by id name */
+        /* spinner function */
+
+const toggleSpinner = (state) =>{
+    const spinner = document.getElementById('spinner');
+    spinner.style.display = state;
+
+}
+const searchTitle = (state) => {
+    const searchTitle = document.getElementById('search-title')
+    searchTitle.style.display = state;
+}
+
+const searchMeal = () => {
+    toggleSpinner('block');
+    const errorForWriteAnything = document.getElementById('error-for-write-anything')
+    errorForWriteAnything.style.display = 'none';
+    const searchMealsContainer = document.getElementById('searchMealsContainer');
+    searchMealsContainer.textContent = ''
+    const searchValue = document.getElementById('search-text').value;
+    document.getElementById('search-text').value =''
+    console.log(searchValue);
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchValue}`;
+    fetch(url)
+    .then(res => res.json())
+    .then(data => showSearchMeal(data.meals))
+}
+
+const showSearchMeal = (meals) =>{
+    console.log(meals)
+    if (meals === null){
+        const errorForWriteAnything = document.getElementById('error-for-write-anything')
+        errorForWriteAnything.style.display = 'block';
+        searchTitle('block')
+        toggleSpinner('none');
+    }
+    for(const meal of meals){
+        console.log(meal);
+        
+        const searchMealsContainer = document.getElementById('searchMealsContainer');
+        const div = document.createElement('div');
+        div.classList.add('col');
+        
+        div.innerHTML = `
+        <div class="card h-100">
+                    <img src="${meal.strMealThumb}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">${meal.strMeal}</h5>
+                      <p id="tags" class="card-text">${meal.strTags ? meal.strTags : ''}</p>
+                      <button type="button" class="btn btn-danger">Details</button>
+                    </div>
+                  </div>
+        `
+        searchMealsContainer.appendChild(div);
+        searchTitle('block')
+    }
+    toggleSpinner('none');
+}
+
+
+
+
+
+/* search by id name */
+
+
+
+
+/* all meals section */
 const loadMeals = () =>{
     const url= `https://www.themealdb.com/api/json/v1/1/categories.php`
     fetch(url)
@@ -27,20 +96,7 @@ const showMeals = (allMeals) =>{
         `
         allMealsContainer.appendChild(div);
 
-        
-
-        /* 
-        
-                        <div class="col">
-                  <div class="card h-100">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                  </div>
-                </div>
-                */
-
     }
 }
+
+/* all meals end */
