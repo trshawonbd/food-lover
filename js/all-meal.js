@@ -15,15 +15,28 @@ const searchMeal = () => {
     toggleSpinner('block');
     const errorForWriteAnything = document.getElementById('error-for-write-anything')
     errorForWriteAnything.style.display = 'none';
+    const errorForWriteNothing = document.getElementById('error-for-write-nothing')
+    errorForWriteNothing.style.display = 'none';
     const searchMealsContainer = document.getElementById('searchMealsContainer');
     searchMealsContainer.textContent = ''
     const searchValue = document.getElementById('search-text').value;
-    document.getElementById('search-text').value =''
-    /* console.log(searchValue); */
-    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchValue}`;
-    fetch(url)
-    .then(res => res.json())
-    .then(data => showSearchMeal(data.meals))
+    if(searchValue === ''){
+        const errorForWriteNothing = document.getElementById('error-for-write-nothing')
+        errorForWriteNothing.style.display = 'block';
+        const searchMealsContainer = document.getElementById('searchMealsContainer');
+        searchMealsContainer.textContent = ''
+        toggleSpinner('none')
+    }
+    else{
+        document.getElementById('search-text').value =''
+        /* console.log(searchValue); */
+        const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchValue}`;
+        fetch(url)
+        .then(res => res.json())
+        .then(data => showSearchMeal(data.meals))
+
+    }
+
 }
 
 const showSearchMeal = (meals) =>{
@@ -180,7 +193,7 @@ const showRandomMeal = (meal) =>{
  */    const randomMealContainer = document.getElementById('randomMealContainer')
     const div = document.createElement('div')
     div.classList.add('card')
-    div.style.width = '18rem'
+    div.style.width = '25rem'
     div.innerHTML = `
     <img src="${meal.strMealThumb}" class="card-img-top" alt="...">
   <div class="card-body">
@@ -221,11 +234,43 @@ const showCountry = (countries) =>{
         div.classList.add('col')
         div.innerHTML = `
     
-        <div class="p-3 border card"> <span class="card-text"> ${country.strArea} </span></div>
+        <div class="p-3 border card" onclick = "findByCountry('${country.strArea}')"> <span class="card-text">  ${country.strArea} </span></div>
       
         
         `
         countriesContainer.appendChild(div)
+
+    }
+}
+
+const findByCountry = (countries) =>{
+    const countryMealsContainer = document.getElementById('countryMealsContainer');
+    countryMealsContainer.textContent = ''
+    document.getElementById('country-meal').style.display = 'none'
+    
+    const url =`https://www.themealdb.com/api/json/v1/1/filter.php?a=${countries}`
+    console.log(url);
+    fetch(url)
+    .then(res => res.json())
+    .then(data => showMealByCountry(data.meals))
+}
+
+const showMealByCountry = (meals) =>{
+    for(const meal of meals){
+        console.log(meal)
+        const countryMealsContainer = document.getElementById('countryMealsContainer');
+        const div = document.createElement('div');
+        div.classList.add('col');
+        div.innerHTML = `
+        <div class="card h-100">
+                    <img src="${meal.strMealThumb}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">${meal.strMeal}</h5>
+                    </div>
+                  </div>
+        `
+        countryMealsContainer.appendChild(div);
+        document.getElementById('country-meal').style.display = 'block'
 
     }
 }

@@ -2,7 +2,19 @@ body{
     background-color:rgb(212, 204, 192);
 }
 
+.navbar-light .navbar-brand{
+    font-size: 50px;
+    color: #6c63ff;
+}
 
+.nav-item{
+    font-size: 30px;
+    
+}
+
+.nav-link{
+    color: #ea565c !important;
+}
 .nav-link:hover{
     background-color: brown; 
     color: white !important;   
@@ -30,7 +42,7 @@ hr{
     display: none;
 }
 
-#error-for-write-anything{
+#error-for-write-anything, #error-for-write-nothing {
     display: none;
     font-weight: 900;
     font-size: larger;
@@ -54,6 +66,15 @@ hr{
     color: #6c63ff;
 }
 
-#letter-meal{
+#letter-meal, #country-meal{
     display: none;
+}
+
+.letters, .countries{
+    cursor: pointer;
+}
+
+.footer{
+    color: #6c63ff;
+    font-size: 20px;
 }
