@@ -53,3 +53,10 @@ hr{
 .card-ingredients{
     color: #6c63ff;
 }
+
+.random-style{
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
