@@ -180,7 +180,7 @@ const showRandomMeal = (meal) =>{
     const randomMealContainer = document.getElementById('randomMealContainer')
     const div = document.createElement('div')
     div.classList.add('card')
-    div.style.width = '30rem'
+    div.style.width = '18rem'
     div.innerHTML = `
     <img src="${meal.strMealThumb}" class="card-img-top" alt="...">
   <div class="card-body">
