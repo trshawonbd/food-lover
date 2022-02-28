@@ -19,6 +19,9 @@ const searchMeal = () => {
     errorForWriteNothing.style.display = 'none';
     const searchMealsContainer = document.getElementById('searchMealsContainer');
     searchMealsContainer.textContent = ''
+    const searchResultDescriptionContainer = document.getElementById('searchResultDescriptionContainer');
+    searchResultDescriptionContainer.textContent ='';
+    
     const searchValue = document.getElementById('search-text').value;
     if(searchValue === ''){
         const errorForWriteNothing = document.getElementById('error-for-write-nothing')
